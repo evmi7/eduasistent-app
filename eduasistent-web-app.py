@@ -29,47 +29,22 @@ if 'results' not in st.session_state:
 if 'temp_dir' not in st.session_state:
     st.session_state.temp_dir = tempfile.mkdtemp()
 
-# Sidebar pro nastavení
+# Nahraďte tento kód v sidebar sekci:
 with st.sidebar:
     st.header("Nastavení")
     
-    api_key = st.text_input("OpenAI API klíč:", 
-                           value=st.session_state.openai_api_key,
-                           type="password",
-                           help="Zadejte váš OpenAI API klíč")
-    
-    if api_key != st.session_state.openai_api_key:
-        st.session_state.openai_api_key = api_key
-    
-    st.markdown("---")
-    
-    model = st.selectbox(
-        "Model AI:",
-        ["gpt-3.5-turbo", "gpt-4"],
-        index=0,
-        help="Vyberte AI model pro analýzu textů"
-    )
-    
-    temperature = st.slider(
-        "Kreativita modelu:",
-        min_value=0.0,
-        max_value=1.0,
-        value=0.3,
-        step=0.1,
-        help="Nižší hodnota = konzistentnější odpovědi, vyšší hodnota = kreativnější odpovědi"
-    )
-    
-    st.markdown("---")
-    
-    export_format = st.selectbox(
-        "Formát exportu výsledků:",
-        ["CSV", "Excel"],
-        index=0
-    )
-    
-    st.markdown("---")
-    
-    st.info("Vytvořeno na základě původního Jupyter notebooku EDUasistent.")
+    # Pokus o načtení API klíče z Streamlit secrets
+    if 'openai' in st.secrets:
+        st.session_state.openai_api_key = st.secrets.openai.api_key
+        st.success("API klíč byl načten z prostředí!")
+    else:
+        api_key = st.text_input("OpenAI API klíč:", 
+                               value=st.session_state.openai_api_key,
+                               type="password",
+                               help="Zadejte váš OpenAI API klíč")
+        
+        if api_key != st.session_state.openai_api_key:
+            st.session_state.openai_api_key = api_key
 
 # Funkce pro analýzu textu
 def analyze_text(reference_text, student_text, api_key, model, temperature):
