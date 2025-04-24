@@ -1,3 +1,17 @@
+import streamlit as st
+import os
+import sys
+
+# Instalace chybějících knihoven
+try:
+    import openai
+except ImportError:
+    st.info("Instaluji openai knihovnu...")
+    os.system(f"{sys.executable} -m pip install openai")
+    import openai
+
+st.title("EDUasistent")
+
 # app.py
 import streamlit as st
 import pandas as pd
