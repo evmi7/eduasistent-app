@@ -4,7 +4,7 @@ import pandas as pd
 import os
 import re
 import tempfile
-import OpenAI
+From OpenAI import OpenAI
 
 # Nastavení stránky
 st.set_page_config(
@@ -35,7 +35,7 @@ with st.sidebar:
     
     # Pokus o načtení API klíče z Streamlit secrets
     if 'openai' in st.secrets:
-        st.session_state.openai_api_key = st.secrets.openai.api_key
+        st.session_state.openai_api_key = st.secrets.openai_api_key      
         st.success("API klíč byl načten z prostředí!")
     else:
         api_key = st.text_input("OpenAI API klíč:", 
