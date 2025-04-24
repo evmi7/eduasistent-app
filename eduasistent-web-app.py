@@ -4,7 +4,7 @@ import pandas as pd
 import os
 import re
 import tempfile
-from openai import OpenAI
+import OpenAI
 
 # Nastavení stránky
 st.set_page_config(
